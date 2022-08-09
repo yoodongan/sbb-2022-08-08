@@ -1,14 +1,21 @@
 package com.ll.exam.sbb;
 
+import com.ll.exam.sbb.article.ArticleDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class MainController {
-    static int count = -1;
+    private static List<ArticleDto> articleDtoList = new ArrayList<>();
+    private static long lastId = 0;
+
+
+    public static int count = -1;
     @GetMapping("/page1")
     @ResponseBody
     public String showPage1() {
@@ -58,9 +65,14 @@ public class MainController {
     @GetMapping("/gugudan")
     @ResponseBody
     public String showGugudan(int dan, int limit) {
-        return IntStream.rangeClosed(1, limit)
-                .mapToObj(i -> "%d * %d = %d".formatted(dan, i, dan*i))
-                .collect(Collectors.joining("<br>"));
+//        return IntStream.rangeClosed(1, limit)
+//                .mapToObj(i -> "%d * %d = %d".formatted(dan, i, dan*i))
+//                .collect(Collectors.joining("<br>"));
+        String str = "";
+        for (int i = 1; i <= limit; i++) {
+            str += "%d * %d = %d<br>".formatted(dan, i, dan*i);
+        }
+        return str;
     }
 
     @GetMapping("mbti")
@@ -77,5 +89,51 @@ public class MainController {
         }
         return null;
     }
+    @GetMapping("/saveSessionAge/{age}")
+    @ResponseBody
+    public int showSessionAge(HttpServletRequest req, @PathVariable int age) {
+        HttpSession session = req.getSession();
+        session.setAttribute("key1", age);
+        return age;
+    }
+    @GetMapping("/saveSessionAge")
+    @ResponseBody
+    public int showSessionAge(HttpServletRequest req) {
+        HttpSession session = req.getSession();
+        return (int) session.getAttribute("key1");
+    }
+    // 8월 9일자 코드 시작.
+
+    @GetMapping("/addArticle")
+    @ResponseBody
+    public String addArticle(@RequestParam(defaultValue = "0") String title, String body) {
+        long id = ++lastId;
+        articleDtoList.add(new ArticleDto(id, title, body));
+        return "%d번글이 등록되었습니다.".formatted(id);
+    }
+    @GetMapping("/article/{id}")
+    @ResponseBody
+    public ArticleDto showArticle(@PathVariable int id) {
+        ArticleDto articleDto = articleDtoList.get(id-1);
+        return articleDto;
+    }
+
+    @GetMapping("/modifyArticle")
+    @ResponseBody
+    public String modifyArticle(long id, String title, String body) {
+        ArticleDto articleDto = articleDtoList.get((int) (id-1));
+        articleDto.setTitle("title");
+        articleDto.setBody("body");
+        return "%d번글이 수정되었습니다.".formatted(id);
+    }
+
+    @GetMapping("/deleteArticle")
+    @ResponseBody
+    public String deleteArticle(long id) {
+        ArticleDto articleDto = articleDtoList.get((int) (id-1));
+        articleDtoList.remove(articleDto);
+        return "%d번글이 삭제되었습니다.".formatted(id);
+    }
+
 
 }
