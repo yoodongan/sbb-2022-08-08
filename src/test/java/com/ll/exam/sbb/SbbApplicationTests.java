@@ -86,8 +86,4 @@ class SbbApplicationTests {
 		assertEquals("질문1", q.getSubject());
 	}
 
-
-
-
-
 }
