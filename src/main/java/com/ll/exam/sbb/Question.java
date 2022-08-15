@@ -27,5 +27,10 @@ public class Question {
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)   // cascade 속성 덕분에, Question 삭제 시 이에 딸린 Answer 하나하나 모두 삭제한다.
     private List<Answer> answerList = new ArrayList<>();
 
+    public void addAnswer(Answer answer) {   // 질문 1 : 답변 M  , 질문에서 답변을 추가하는 방식으로 변경.
+        answer.setQuestion(this);
+        getAnswerList().add(answer);
+
+    }
 
 }
