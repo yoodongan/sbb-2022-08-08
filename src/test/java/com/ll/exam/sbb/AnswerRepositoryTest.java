@@ -59,11 +59,17 @@ class AnswerRepositoryTest {
     void 저장() {
         Question q = questionRepository.findById(2).get();
 
-        Answer a = new Answer();
-        a.setContent("네 자동으로 생성됩니다.");
-        a.setCreateDate(LocalDateTime.now());
-        q.addAnswer(a);
-        answerRepository.save(a);
+        Answer answer1 = new Answer();
+        answer1.setContent("SpringMVC 패턴 역시 객체지향 설계라 할 수 있습니다.");
+        answer1.setCreateDate(LocalDateTime.now());
+        q.addAnswer(answer1);
+
+        Answer answer2 = new Answer();
+        answer2.setContent("Winter 다음은 Spring입니다.");
+        answer2.setCreateDate(LocalDateTime.now());
+        q.addAnswer(answer2);
+
+        questionRepository.save(q);   // cascade = CascadeType.ALL 을 사용해 Question 객체 저장 시 Answer 도 저장.
     }
     @Test
     @Transactional
