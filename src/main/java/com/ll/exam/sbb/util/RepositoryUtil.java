@@ -26,9 +26,9 @@ public interface RepositoryUtil {
     void truncate();  // 추상메서드.
 
     default void truncateTable() {     // 디폴트 메서드. 구상메서드임.
-        disableForeignKeyCheck();
+//        disableForeignKeyCheck();
         truncate();   // 이거는 RepositoryUtil 을 상속받는 AnswerRepository, QuestionRepository 에서 오버라이딩해서 만든다.
-        enableForeignKeyCheck();
+//        enableForeignKeyCheck();
     }
 
 }

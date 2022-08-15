@@ -46,6 +46,7 @@ public class QuestionRepositoryTest {
     }
 
     public static void clearData(QuestionRepository questionRepository){
+        questionRepository.deleteAll();
         questionRepository.truncateTable();
     }
 
@@ -66,6 +67,7 @@ public class QuestionRepositoryTest {
         q2.setContent("내용2");
         q2.setCreateDate(LocalDateTime.now());
         questionRepository.save(q2);
+
 
         assertThat(q1.getId()).isEqualTo(sampleLastId+1);  // 마지막 아이디 + 1
         assertThat(q2.getId()).isEqualTo(sampleLastId+2);  // 마지막 아이디 + 2

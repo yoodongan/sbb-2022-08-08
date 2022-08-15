@@ -2,6 +2,7 @@ package com.ll.exam.sbb;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -22,4 +23,5 @@ public class Answer {
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private Question question;
+
 }
