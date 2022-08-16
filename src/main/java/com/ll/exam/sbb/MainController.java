@@ -21,10 +21,12 @@ public class MainController {
                     new ArticleDto("제목2", "내용2")
             )
     );
-
-
-
     private static long personId = 0;
+
+    @GetMapping("/")
+    public String rootPage() {
+        return "redirect:/question/list";
+    }
 
 
     public static int count = -1;
