@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,8 +21,9 @@ public class QuestionService {
 
         return q2;
     }
+
     @Transactional
-    public void truncate(){
+    public void truncate() {
         questionRepository.truncateTable();
     }
 
@@ -35,5 +37,13 @@ public class QuestionService {
             return oq.get();
         }
         throw new DataNowFoundException("question not found");
+    }
+
+    public void create(String subject, String content) {
+        Question q = new Question();
+        q.setSubject(subject);
+        q.setContent(content);
+        q.setCreateDate(LocalDateTime.now());
+        questionRepository.save(q);
     }
 }
