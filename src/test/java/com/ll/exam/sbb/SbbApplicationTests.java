@@ -32,7 +32,7 @@ class SbbApplicationTests {
 		Question q = new Question();
 		q.setSubject("sbb가 무엇인가요?");
 		q.setContent("sbb에 대해서 알고 싶습니다.");
-		q.setCreate_date(LocalDateTime.now());
+		q.setCreateDate(LocalDateTime.now());
 		questionRepository.save(q);
 	}
 

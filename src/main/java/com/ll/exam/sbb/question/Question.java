@@ -22,7 +22,7 @@ public class Question {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    private LocalDateTime create_date;
+    private LocalDateTime createDate;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)  // 질문 삭제 시, 참조하는 답변들도 모두 삭제된다는 뜻.
     private List<Answer> answers = new ArrayList<>();
