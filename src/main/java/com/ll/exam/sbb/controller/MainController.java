@@ -1,13 +1,11 @@
 package com.ll.exam.sbb.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MainController {
+    /*
     private static int increasingNumber = -1;
 
     @GetMapping("/page1")
@@ -20,6 +18,7 @@ public class MainController {
                 </form>
                 """;
     }
+
     @PostMapping("/page2")
     @ResponseBody
     public String showPage2Post(@RequestParam(defaultValue = "이름 없음") String d) {
@@ -28,6 +27,7 @@ public class MainController {
                 <h1>안녕하세요 %s님, POST 방식으로 오셨군요.</h1>
                 """.formatted(d, d);
     }
+
     @GetMapping("/page2")
     @ResponseBody
     public String showPage2Get(@RequestParam(defaultValue = "0") String name) {
@@ -49,6 +49,10 @@ public class MainController {
         return ++increasingNumber;
     }
 
+     */
 
-
+    @RequestMapping("/")
+    public String root() {
+        return "redirect:/question/list";
+    }
 }
