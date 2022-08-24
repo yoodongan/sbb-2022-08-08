@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/question")
 @RequiredArgsConstructor
 public class QuestionController {
-    private final QuestinoService questionService;
+    private final QuestionService questionService;
 
     @GetMapping("/list")
     public String list(Model model) {
@@ -24,7 +24,7 @@ public class QuestionController {
 
     @RequestMapping(value = "/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer id) {
-        Question question = this.questionService.getQuestion(id);
+        Question question = questionService.getQuestion(id);
         model.addAttribute("question", question);
         return "question_detail";
     }

@@ -29,11 +29,17 @@ class SbbApplicationTests {
 
 	@Test
 	void saveQuestion() {
-		Question q = new Question();
-		q.setSubject("sbb가 무엇인가요?");
-		q.setContent("sbb에 대해서 알고 싶습니다.");
-		q.setCreateDate(LocalDateTime.now());
-		questionRepository.save(q);
+		Question q1 = new Question();
+		q1.setSubject("sbb가 무엇인가요?");
+		q1.setContent("sbb에 대해서 알고 싶습니다.");
+		q1.setCreateDate(LocalDateTime.now());
+		this.questionRepository.save(q1);  // 첫번째 질문 저장
+
+		Question q2 = new Question();
+		q2.setSubject("스프링부트 모델 질문입니다.");
+		q2.setContent("id는 자동으로 생성되나요?");
+		q2.setCreateDate(LocalDateTime.now());
+		this.questionRepository.save(q2);  // 두번째 질문 저장
 	}
 
 	@Test
@@ -60,11 +66,11 @@ class SbbApplicationTests {
 		assertTrue(oQuestion.isPresent());
 		Question question = oQuestion.get();
 
-		Answer answer = new Answer();
-		answer.setContent("네 자동으로 생성됩니다.");
-		answer.setQuestion(question);
-		answer.setCreateDate(LocalDateTime.now());
-		answerRepository.save(answer);
+		Answer answer1 = new Answer();
+		answer1.setContent("네 자동으로 생성됩니다.");
+		answer1.setQuestion(question);
+		answer1.setCreateDate(LocalDateTime.now());
+		answerRepository.save(answer1);
 	}
 
 	@Transactional
@@ -74,7 +80,7 @@ class SbbApplicationTests {
 		assertTrue(oq.isPresent());
 		Question q = oq.get();
 
-		List<Answer> answerList = q.getAnswers();
+		List<Answer> answerList = q.getAnswerList();
 
 		assertEquals(1, answerList.size());
 		assertEquals("네 자동으로 생성됩니다.", answerList.get(0).getContent());
