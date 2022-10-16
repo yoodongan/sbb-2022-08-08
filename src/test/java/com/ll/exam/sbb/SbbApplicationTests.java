@@ -1,5 +1,9 @@
 package com.ll.exam.sbb;
 
+import com.ll.exam.sbb.answer.Answer;
+import com.ll.exam.sbb.answer.AnswerRepository;
+import com.ll.exam.sbb.question.Question;
+import com.ll.exam.sbb.question.QuestionRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
