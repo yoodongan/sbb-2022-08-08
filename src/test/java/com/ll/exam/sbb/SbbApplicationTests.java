@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,6 +16,8 @@ class SbbApplicationTests {
 
 	@Autowired
 	private QuestionRepository questionRepository;
+	@Autowired
+	private AnswerRepository answerRepository;
 
 	@Test
 	@DisplayName("question, answer 저장 잘되는지 테스트")
@@ -59,6 +62,52 @@ class SbbApplicationTests {
 		questionRepository.save(question);
 
 	}
+
+	@Test
+	@DisplayName("값 삭제 테스트")
+	void t5() {
+		Optional<Question> oQuestion = questionRepository.findById(1L);
+		Question question = null;
+		if(oQuestion.isPresent()) {
+			question = oQuestion.get();
+		}
+		questionRepository.delete(question);
+		Assertions.assertThat(questionRepository.count()).isEqualTo(1);
+
+	}
+
+	@Test
+	@DisplayName("답변 데이터 생성 후 저장하기")
+	void t6() {
+		Answer answer = new Answer();
+		answer.setContent("답변1입니당!");
+		answer.setCreatedDate(LocalDateTime.now());
+		Optional<Question> oQ = questionRepository.findById(1L);
+		Assertions.assertThat(oQ).isPresent();  // Optional 로 가져온 Question이 존재하는지 먼저 테스트.
+		Question question = oQ.get();
+
+		answer.setQuestion(question);
+		answerRepository.save(answer);
+	}
+	@Transactional
+	@Test
+	@DisplayName("질문에서 답변 조회, 답변에서 질문 조회")
+	void t7() {
+		Optional<Question> oQuestion = questionRepository.findById(1L);
+		Question question = oQuestion.get();
+		Assertions.assertThat(question.getAnswerList().size()).isEqualTo(1);
+
+		Optional<Answer> oAnswer = answerRepository.findById(1L);
+		Answer answer = oAnswer.get();
+		Question question1 = answer.getQuestion();
+		System.out.println(question1.getSubject());
+
+	}
+
+
+
+
+
 
 
 	@Test
