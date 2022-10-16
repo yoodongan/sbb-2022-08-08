@@ -14,7 +14,7 @@ public class AnswerService {
     public void craete(Question question, String content) {
         Answer answer = new Answer();
         answer.setContent(content);
-        answer.setCreatedDate(LocalDateTime.now());
+        answer.setCreateDate(LocalDateTime.now());
         answer.setQuestion(question);
         answerRepository.save(answer);
     }

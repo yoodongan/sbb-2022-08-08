@@ -2,7 +2,6 @@ package com.ll.exam.sbb.question;
 
 import com.ll.exam.sbb.exception.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.context.config.ConfigDataLocationNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

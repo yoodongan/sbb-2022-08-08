@@ -86,7 +86,7 @@ class SbbApplicationTests {
 	void t6() {
 		Answer answer = new Answer();
 		answer.setContent("답변1입니당!");
-		answer.setCreatedDate(LocalDateTime.now());
+		answer.setCreateDate(LocalDateTime.now());
 		Optional<Question> oQ = questionRepository.findById(1L);
 		Assertions.assertThat(oQ).isPresent();  // Optional 로 가져온 Question이 존재하는지 먼저 테스트.
 		Question question = oQ.get();
