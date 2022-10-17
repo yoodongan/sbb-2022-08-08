@@ -4,6 +4,7 @@ import com.ll.exam.sbb.exception.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,5 +21,13 @@ public class QuestionService {
         Optional<Question> oQuestion = questionRepository.findById(questionId);
         if(oQuestion.isEmpty()) throw new DataNotFoundException("question not found");
         return oQuestion.get();
+    }
+
+    public void create(String subject, String content) {
+        Question question = new Question();
+        question.setSubject(subject);
+        question.setContent(content);
+        question.setCreateDate(LocalDateTime.now());
+        questionRepository.save(question);
     }
 }
